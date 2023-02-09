@@ -1,0 +1,10 @@
+dist
+python
+build
+node_modules/**
+.vscode
+.pytest_cache/
+
+cdk.out
+
+__pycache__
