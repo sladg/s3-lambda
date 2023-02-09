@@ -6,7 +6,6 @@ export interface SetupS3LambdaProps {
 	handler: string
 	codePath: string
 	bucket: IBucket
-	pathPrefix?: string
 	memory?: number
 	timeout?: number
 }
@@ -14,10 +13,7 @@ export interface SetupS3LambdaProps {
 export const DEFAULT_MEMORY = 256
 export const DEFAULT_TIMEOUT = 10
 
-export const setupS3Lambda = (
-	scope: Stack,
-	{ codePath, handler, bucket, pathPrefix, memory = DEFAULT_MEMORY, timeout = DEFAULT_TIMEOUT }: SetupS3LambdaProps,
-) => {
+export const setupS3Lambda = (scope: Stack, { codePath, handler, bucket, memory = DEFAULT_MEMORY, timeout = DEFAULT_TIMEOUT }: SetupS3LambdaProps) => {
 	const s3Lambda = new Function(scope, 'S3Lambda', {
 		code: Code.fromAsset(codePath),
 		runtime: Runtime.NODEJS_16_X,
@@ -26,7 +22,6 @@ export const setupS3Lambda = (
 		timeout: Duration.seconds(timeout),
 		environment: {
 			BUCKET_NAME: bucket.bucketName,
-			...(pathPrefix && { PATH_PREFIX: pathPrefix }),
 		},
 	})
 

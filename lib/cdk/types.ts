@@ -4,5 +4,4 @@ export interface CustomStackProps extends StackProps {
 	codeZipPath: string
 	bucketName: string
 	handler: string
-	pathPrefix?: string
 }

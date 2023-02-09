@@ -16,7 +16,6 @@ new S3LambdaStack(app, process.env.STACK_NAME, {
 	description: 'Simple Lambda service allowing integration between ApiGateway v2 (HTTP API) and S3. By: @sladg',
 	codeZipPath: path.resolve(__dirname, '../../dist/code.zip'),
 	handler: 'index.handler',
-	pathPrefix: process.env.PATH_PREFIX,
 	bucketName: process.env.BUCKET_NAME,
 	env: {
 		account: process.env.CDK_DEFAULT_ACCOUNT,

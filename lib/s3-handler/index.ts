@@ -3,7 +3,6 @@ import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
 const s3 = new sdk.S3()
 const bucket = process.env.BUCKET_NAME
-const pathPrefix = process.env.PATH_PREFIX
 
 export const handler: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
 	try {
@@ -13,15 +12,9 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context, callback
 			throw new Error('Missing `BUCKET_NAME` environment variables.')
 		}
 
-		let requestedPath = event.pathParameters?.proxy
-
+		const requestedPath = event.pathParameters?.proxy
 		if (!requestedPath) {
 			throw new Error('No `event.pathParameters?.proxy` provided, check your ApiGw settings.')
-		}
-
-		if (pathPrefix && pathPrefix.length > 1) {
-			console.log('Removing part of path: ', pathPrefix)
-			requestedPath.replace(pathPrefix, '')
 		}
 
 		console.log('Requesting path: ', requestedPath)
