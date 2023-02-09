@@ -23,6 +23,7 @@
     "build:cdk": "tsup lib/cdk/app.ts --out-dir dist/cdk",
     "build:handler": "tsup lib/s3-handler/index.ts --out-dir dist/s3-handler",
     "build:cli": "tsup lib/cli.ts",
+    "postbuild": "zip -j ./dist/code.zip ./dist/s3-handler/index.js",
     "commit": "npx --package cz-emoji-conventional --package commitizen -- cz",
     "release": "npx --package @sladg/release-utils utils shipit --gitUser @sladg --gitEmail jan@ssoukup.com --changelog"
   },
