@@ -25,10 +25,11 @@ program
 	.option('--region <region>', 'AWS region.', region)
 	.option('--bootstrap', 'Bootstrap CDK stack.', false)
 	.option('--bucketName <name>', 'Name of the bucket to be used.')
+	.option('--pathPrefix <path>', 'Specify path used in ApiGw as prefix, this will get removed from path while requesting S3 object.', undefined)
 	.action(async (options) => {
 		console.log('Our config is: ', options)
-		const { stackName, appPath, region, bootstrap, bucketName } = options
-		wrapProcess(deployHandler({ stackName, appPath, region, bootstrap, bucketName }))
+		const { stackName, appPath, region, bootstrap, bucketName, pathPrefix } = options
+		wrapProcess(deployHandler({ stackName, appPath, region, bootstrap, bucketName, pathPrefix }))
 	})
 
 program

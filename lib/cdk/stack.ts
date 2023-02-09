@@ -20,6 +20,7 @@ export class S3LambdaStack extends Stack {
 
 		this.pdfLambda = this.setupS3Lambda({
 			codePath: config.codeZipPath,
+			pathPrefix: config.pathPrefix,
 			handler: config.handler,
 			bucket: this.bucket,
 		})

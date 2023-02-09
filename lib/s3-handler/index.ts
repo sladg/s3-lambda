@@ -2,18 +2,23 @@ import sdk from 'aws-sdk'
 import { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
 const s3 = new sdk.S3()
-const bucket = process.env.S3_BUCKET
+const bucket = process.env.BUCKET_BUCKET
+const pathPrefix = process.env.PATH_PREFIX
 
 export const handler: APIGatewayProxyHandlerV2 = async (event, context, callback) => {
 	try {
 		if (!bucket) {
-			throw new Error('Missing `S3_BUCKET` environment variables.')
+			throw new Error('Missing `BUCKET_NAME` environment variables.')
 		}
 
-		const requestedPath = event.pathParameters?.proxy
+		let requestedPath = event.pathParameters?.proxy
 
 		if (!requestedPath) {
 			throw new Error('No `event.pathParameters?.proxy` provided, check your ApiGw settings.')
+		}
+
+		if (pathPrefix && pathPrefix.length > 1) {
+			requestedPath.replace(pathPrefix, '')
 		}
 
 		const objectKey = decodeURI(requestedPath)
