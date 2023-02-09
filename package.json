@@ -1,6 +1,6 @@
 {
   "name": "@sladg/s3-lambda",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Pre-compiled python lambda used for proxying ApiGateway requests to S3",
   "repository": {
     "type": "git",
